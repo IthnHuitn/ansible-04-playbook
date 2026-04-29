@@ -1,0 +1,68 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  become: true
+  tags:
+    - clickhouse
+  pre_tasks:
+    - name: Install required dependencies for role
+      ansible.builtin.dnf:
+        name:
+          - gnupg2
+          - wget
+        state: present
+  roles:
+    - role: clickhouse-role
+      vars:
+        clickhouse_version: "26.3.9.8"
+
+- name: Configure ClickHouse
+  hosts: clickhouse
+  become: true
+  tags:
+    - clickhouse
+    - config
+  tasks:
+    - name: Configure ClickHouse to listen on all interfaces
+      ansible.builtin.replace:
+        path: /etc/clickhouse-server/config.xml
+        regexp: '<!-- <listen_host>0\.0\.0\.0</listen_host> -->'
+        replace: '<listen_host>0.0.0.0</listen_host>'
+      notify: Restart clickhouse service
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Wait for ClickHouse to start
+      ansible.builtin.wait_for:
+        port: 9000
+        host: localhost
+        delay: 5
+        timeout: 30
+
+  handlers:
+    - name: Restart clickhouse service
+      ansible.builtin.systemd:
+        name: clickhouse-server
+        state: restarted
+        daemon_reload: true
+
+- name: Install Vector
+  hosts: vector
+  become: true
+  tags:
+    - vector
+  roles:
+    - role: vector-role
+      vars:
+        clickhouse_host: "{{ hostvars['clickhouse-01'].ansible_default_ipv4.address }}"
+
+- name: Install Lighthouse
+  hosts: lighthouse
+  become: true
+  tags:
+    - lighthouse
+  roles:
+    - role: lighthouse-role
+      vars:
+        clickhouse_host: "{{ hostvars['clickhouse-01'].ansible_default_ipv4.address }}"

@@ -1,0 +1,15 @@
+---
+- src: git@github.com:IthnHuitn/clickhouse-role.git
+  scm: git
+  version: "1.0.0"
+  name: clickhouse-role
+
+- src: git@github.com:IthnHuitn/vector-role.git
+  scm: git
+  version: "1.0.0"
+  name: vector-role
+
+- src: git@github.com:IthnHuitn/lighthouse-role.git
+  scm: git
+  version: "1.0.0"
+  name: lighthouse-role

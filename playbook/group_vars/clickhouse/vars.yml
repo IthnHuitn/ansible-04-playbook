@@ -1,0 +1,6 @@
+---
+clickhouse_version: "26.3.9.8"
+clickhouse_repo_key: "https://packages.clickhouse.com/rpm/stable/repodata/repomd.xml.key"
+clickhouse_repo: "https://packages.clickhouse.com/rpm/stable/"
+clickhouse_repo_gpgcheck: false
+clickhouse_disable_gpg_check: true

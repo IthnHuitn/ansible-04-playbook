@@ -1,0 +1,30 @@
+---
+clickhouse:
+  hosts:
+    clickhouse-01:
+      ansible_host: # clickhouse host IP
+      ansible_user: fedora
+      ansible_ssh_private_key_file: /home/user/.ssh/ssh-key
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+      become: true
+      become_user: root
+
+vector:
+  hosts:
+    vector-01:
+      ansible_host: # vector host IP
+      ansible_user: fedora
+      ansible_ssh_private_key_file: /home/user/.ssh/ssh-key
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+      become: true
+      become_user: root
+
+lighthouse:
+  hosts:
+    lighthouse-01:
+      ansible_host: # lighthouse host IP
+      ansible_user: fedora
+      ansible_ssh_private_key_file: /home/user/.ssh/ssh-key
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+      become: true
+      become_user: root
