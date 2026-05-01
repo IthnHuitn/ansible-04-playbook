@@ -158,10 +158,11 @@ curl -s -o /dev/null -w "%{http_code}" http://<LIGHTHOUSE_IP>
 ## Подготовка к выполнению
 
 1. Развернул три ВМ в Яндекс.Облаке с помощью Terraform.
-2. Из-за постоянной ошибки отсутствия подписи для современных ОС создал свой публичный репозиторий с ролью Clickhouse и два публичных репозитория Vector и Lighthouse.
+2. Из-за постоянной ошибки отсутствия подписи для современных ОС создал свой публичный репозиторий с ролью Clickhouse(установкa через прямые ссылки на RPM-пакеты) и два публичных репозитория Vector и Lighthouse.
 
   [Clickhouse-role](https://github.com/IthnHuitn/clickhouse-role) [Vector-role](https://github.com/IthnHuitn/vector-role) [Lighthouse-role](https://github.com/IthnHuitn/lighthouse-role)
 
+### Ошибка
 ![Ошибка](https://github.com/IthnHuitn/ansible-04-playbook/blob/master/screens/clickhouseGPGfail.png)
 
 ## Основная часть
